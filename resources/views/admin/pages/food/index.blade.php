@@ -70,8 +70,8 @@
                                 <tr>
                                     <td class="cell">
 
-                                        @if ($food->media)
-                                        <img src=" {{ $food->media[0]->file_url }}" alt="aveter" class='d-block avatar'>
+                                        @if ($food->first_media !=null)
+                                        <img src=" {{ $food->first_media->file_url }}" alt="aveter" class='d-block avatar'>
                                         @else
                                         <img src=" {{ asset('uploads/food_media/default.png') }}" alt="aveter" class='d-block avatar'>
                                         @endif

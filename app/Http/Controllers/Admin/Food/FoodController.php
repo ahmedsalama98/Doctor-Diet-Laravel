@@ -54,7 +54,7 @@ class FoodController extends Controller
 
 
         ->whereStatus($status)
-        ->with(['media','category','meals'])
+        ->with(['media','category','meals','first_media'])
         ->latest()->paginate(5)->withQueryString();
 
 

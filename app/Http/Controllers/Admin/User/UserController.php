@@ -41,6 +41,10 @@ class UserController extends Controller
         ->whereDoesntHaveRole()
         ->latest()->paginate(5)->withQueryString();
 
+        // return [$users->groupBy(function($date) {
+        //     return \Carbon\Carbon::parse($date->created_at)->format('d-M-y');
+        // }) ,];
+
 
 
         return view('admin.pages.user.index', compact('users'));

@@ -12,14 +12,24 @@ class Food extends Model
     protected $guarded=[];
     protected $table ='foods';
 
-    protected $appends =['name'];
+    protected $appends =['name', 'description'];
 
-
+    public function first_media()
+    {
+        return $this->hasOne(FoodMedia::class, 'food_id', 'id')->oldestOfMany();
+    }
     protected function getNameAttribute(){
 
         $name  = 'name_'.app()->getLocale();
         return  $this->$name ;
     }
+
+    protected function getDescriptionAttribute(){
+
+        $description  = 'description_'.app()->getLocale();
+        return  $this->$description ;
+    }
+
 
     public function media()
     {

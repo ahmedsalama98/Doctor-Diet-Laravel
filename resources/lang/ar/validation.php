@@ -11,7 +11,7 @@ return [
     | as the size rules. Feel free to tweak each of these messages.
     |
     */
-
+    "wrong_old_password"=>'الرقم السري القديم غير صحيح',
     'accepted' => 'يجب قبول :attribute',
     'active_url' => ':attribute لا يُمثّل رابطًا صحيحًا',
     'after' => 'يجب على :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.',
@@ -116,6 +116,7 @@ return [
     */
 
     'attributes' => [
+        'old_password'=>'old_password',
         'name' => 'الاسم',
         'username' => 'اسم المُستخدم',
         'email' => 'البريد الالكتروني',

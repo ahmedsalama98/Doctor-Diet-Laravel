@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Pagination\Paginator;
 
-
-class PaginateServiceProvider extends ServiceProvider
+class ChangeLangApiProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -25,7 +23,12 @@ class PaginateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::useBootstrapFive();
 
+        if(request()->is('api/*')){
+
+            if(request()->header('Lang') ){
+                app()->setLocale(request()->header('Lang'));
+            }
+        }
     }
 }

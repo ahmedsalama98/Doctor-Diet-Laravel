@@ -21,10 +21,12 @@ return new class extends Migration
             $table->text('avatar')->nullable();
             $table->unsignedTinyInteger('status')->nullable()->default(1);
             $table->unsignedTinyInteger('gender')->nullable()->comment('0 => is male , 1 => is female , null => is the rest');
-            $table->unsignedTinyInteger('received_emails')->nullable()->default(0);
+            $table->unsignedTinyInteger('receive_email')->nullable()->default(0);
             $table->string('password');
             $table->string('country')->nullable();
             $table->date('birth_date')->nullable();
+            $table->bigInteger('daily_use_target')->nullable();
+            $table->double('height')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
