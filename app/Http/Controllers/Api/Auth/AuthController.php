@@ -118,7 +118,7 @@ class AuthController extends Controller
 
             $token =  $user->createToken($user->email);
             $data =[
-                'user'=>  $user,
+                'user'=>   new UserResource($user),
                 'token'=>$token->plainTextToken
 
             ];

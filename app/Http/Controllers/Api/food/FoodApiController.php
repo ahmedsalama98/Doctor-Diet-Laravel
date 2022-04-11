@@ -28,29 +28,47 @@ class FoodApiController extends Controller
 
             // return is_int($request->category_id);
             $foods = Food::
+           with(['first_media']);
 
-            whereHas('category',function (Builder $query )use($search) {
-                return $query->Where('name_ar', 'like', '%'.$search . '%')
-                             ->orWhere('name_en', 'like', '%'.$search . '%');
-            })
-            ->where(function(Builder $q) use($category_id){
-                return  $q ->when( $category_id  ,function (Builder $query ,$category_id  ) {
-                 return $query->where('category_id',$category_id);
-             });
-            })
 
-            ->where(function(Builder $q) use($calories){
-                return  $q ->when( $calories  ,function (Builder $query ,$calories  ) {
-                 return $query->where('calories','>=' ,$calories);
-             });
-            })
+            if(!is_null($search)){
 
-            ->when( $search  ,function (Builder $query ,$search  ) {
-                return $query->orWhere('name_ar' ,'like', '%'.$search . '%')
-                             ->orWhere('name_en' ,'like', '%'.$search . '%');
-            })
+                $foods= $foods
+                -> where('name_ar' ,'like', '%'.$search . '%')
+                ->orWhere('name_en' ,'like', '%'.$search . '%');
 
-            ->with(['first_media'])
+
+            }
+
+            if(!is_null($category_id)){
+
+                $foods=   $foods->where('category_id',$category_id);
+
+
+            }
+            if(!is_null($calories)){
+
+                $foods=  $foods->where('calories','>=' ,$calories);
+
+            }
+            // ->where(function(Builder $q) use($category_id){
+            //     return  $q ->when( $category_id  ,function (Builder $query ,$category_id  ) {
+            //      return $query->where('category_id',$category_id);
+            //  });
+            // })
+
+            // ->where(function(Builder $q) use($calories){
+            //     return  $q ->when( $calories  ,function (Builder $query ,$calories  ) {
+            //      return $query->where('calories','>=' ,$calories);
+            //  });
+            // })
+
+            // ->when( $search  ,function (Builder $query ,$search  ) {
+            //     return $query->orWhere('name_ar' ,'like', '%'.$search . '%')
+            //                  ->orWhere('name_en' ,'like', '%'.$search . '%');
+            // })
+
+            $foods=   $foods
             ->paginate(6);
 
             $data =[
@@ -60,7 +78,7 @@ class FoodApiController extends Controller
                     'total'=> $foods->total(),
                     'perPage'=> $foods->perPage(),
                     'currentPage'=> $foods->currentPage(),
-                    'count'=> $foods->count(),
+                    // 'count'=> $foods->count(),
                     'hasPages'=> $foods->hasPages(),
                     'hasMorePages'=> $foods->hasMorePages(),
                     'lastPage'=> $foods->lastPage(),
@@ -72,18 +90,59 @@ class FoodApiController extends Controller
         }
         public function searchForAddNewMeal(Request $request ){
             $search = $request->search;
+            $category_id = !is_null($request->category_id) && $request->category_id > 0 ? $request->category_id :null;
+            $calories = !is_null($request->calories) && $request->calories > 0 ? $request->calories :null;
             $foods = Food::
+            with(['first_media']);
 
-            whereHas('category',function (Builder $query )use($search) {
-                return $query->Where('name_ar', 'like', '%'.$search . '%')
-                             ->orWhere('name_en', 'like', '%'.$search . '%');
-            })
-            ->orWhere(function (Builder $query )use($search) {
-                return $query->orWhere('name_ar' ,'like', '%'.$search . '%')
-                             ->orWhere('name_en' ,'like', '%'.$search . '%');
-            })
-            ->with(['first_media'])
-            ->limit(10)
+
+
+            if(!is_null($search)){
+
+                $foods= $foods
+                -> where('name_ar' ,'like', '%'.$search . '%')
+                ->orWhere('name_en' ,'like', '%'.$search . '%');
+
+
+            }
+
+
+            if(!is_null($category_id)){
+
+                $foods=   $foods->where('category_id',$category_id);
+
+
+            }
+            if(!is_null($calories)){
+
+                $foods=  $foods->where('calories','>=' ,$calories);
+
+            }
+
+            // whereHas('category',function (Builder $query )use($search) {
+            //     return $query->Where('name_ar', 'like', '%'.$search . '%')
+            //                  ->orWhere('name_en', 'like', '%'.$search . '%');
+            // })
+            // ->where(function(Builder $q) use($category_id){
+            //     return  $q ->when( $category_id  ,function (Builder $query ,$category_id  ) {
+            //      return $query->where('category_id',$category_id);
+            //  });
+            // })
+
+            // ->where(function(Builder $q) use($calories){
+            //     return  $q ->when( $calories  ,function (Builder $query ,$calories  ) {
+            //      return $query->where('calories','>=' ,$calories);
+            //  });
+            // })
+
+            // ->when( $search  ,function (Builder $query ,$search  ) {
+            //     return $query->orWhere('name_ar' ,'like', '%'.$search . '%')
+            //                  ->orWhere('name_en' ,'like', '%'.$search . '%');
+            // })
+            // ->with(['first_media'])
+
+            $foods =$foods
+            ->limit(7)
             ->get();
 
             $data =[
@@ -99,13 +158,13 @@ class FoodApiController extends Controller
 
             $food = Food::find($id);
 
+
             if(!$food){
                 return $this->sendErrors([],'NOT FOUND' ,404);
             }
 
             $data =[
-
-                'food'=>new FoodResource($food)
+               'food'=>new FoodResource($food)
             ];
             return $this->sendResponse($data, __('done'),200);
         }
@@ -121,6 +180,7 @@ class FoodApiController extends Controller
                         'name'=>$category->name,
                         'description'=>$category->description,
                         'id'=>$category->id,
+                        'file_url'=>$category->file_url,
                     ];
                 })
             ];

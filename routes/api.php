@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Contact\ContactController;
 use App\Http\Controllers\Api\Food\FoodApiController;
 use App\Http\Controllers\Api\Meal\MealApiController;
 use App\Http\Controllers\Api\User\WeightController;
@@ -80,6 +81,7 @@ Route:: group(['prefix' =>'api','middleware' => 'changeLangApi'],function(){
 
     });
 
+    Route::post('/contact/store', [ ContactController::class ,'store']);
 
 
     // end api routes
