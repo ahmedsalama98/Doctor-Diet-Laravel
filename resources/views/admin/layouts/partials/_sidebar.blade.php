@@ -112,7 +112,7 @@
                 </li>
                 {{-- meals --}}
                                 {{-- meals --}}
-                <!--//nav-item-->
+                {{--  <!--//nav-item-->
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link {{ Route::is('admin.meals.*')?'active' :''}}" href="{{ route('admin.meals.index') }}">
@@ -122,7 +122,7 @@
                         <span class="nav-link-text">{{ __('site.meals') }}</span>
                     </a>
                     <!--//nav-link-->
-                </li>
+                </li>  --}}
                 {{-- meals --}}
 
                 {{-- meals --}}

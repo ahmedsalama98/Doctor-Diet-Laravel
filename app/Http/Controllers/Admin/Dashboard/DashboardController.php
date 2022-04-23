@@ -11,7 +11,7 @@ use App\Models\FoodCategory;
 use App\Models\Meal;
 use App\Models\MealCategory;
 use App\Models\User;
-
+use Stevebauman\Location\Facades\Location;
 
 class DashboardController extends Controller
 
@@ -52,7 +52,6 @@ class DashboardController extends Controller
             $users_chart_data[]= $chart->count;
             $users_chart_labels[] = $chart->month.' '.$chart->year;
         }
-
         return view('admin.pages.dashboard.index' , compact('users_chart_data','users_chart_labels','users_count','admins_count','foods_count','food_categories_count','meal_categories_count','meals_count','contacts_count'));
     }
 

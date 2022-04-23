@@ -85,20 +85,20 @@
             </div>
            {{-- meal_categories --}}
 
-           {{-- meals --}}
+           {{-- contacts --}}
 
             <div class="col-6 col-lg-4">
 
                     <div class="app-card app-card-stat shadow-sm h-100 ">
                         <div class="app-card-body p-3 p-lg-4">
-                            <h4 class="stats-type mb-1">{{ __('site.total') .' '.__('site.meals') }}</h4>
-                            <div class="stats-figure">{{  number_format($meals_count )}}</div>
+                            <h4 class="stats-type mb-1">{{ __('site.total') .' '.__('site.contacts') }}</h4>
+                            <div class="stats-figure">{{  number_format($contacts_count )}}</div>
 
                         </div>
-                        <a class="app-card-link-mask" href="{{ route('admin.meals.index') }}"></a>
+                        <a class="app-card-link-mask" href="{{ route('admin.contacts.index') }}"></a>
                     </div>
             </div>
-           {{-- meals --}}
+           {{-- contacts --}}
 
 
         </div>
